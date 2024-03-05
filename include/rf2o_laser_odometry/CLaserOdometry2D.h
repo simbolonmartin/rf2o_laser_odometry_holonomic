@@ -138,7 +138,7 @@ protected:
   unsigned int iter_irls;
   float g_mask[5];
 
-  double lin_speed, ang_speed;
+  double lin_speed, ang_speed, lin_speed_y;
 
   ros::WallDuration	m_runtime;
   ros::Time last_odom_time, current_scan_time;

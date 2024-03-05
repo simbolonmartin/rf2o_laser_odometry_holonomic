@@ -245,7 +245,7 @@ void CLaserOdometry2DNode::publish()
   //set the velocity
   odom.child_frame_id = base_frame_id;
   odom.twist.twist.linear.x = lin_speed;    //linear speed
-  odom.twist.twist.linear.y = 0.0;
+  odom.twist.twist.linear.y = lin_speed_y;  //linear speed in y direction for holonomic
   odom.twist.twist.angular.z = ang_speed;   //angular speed
   //publish the message
   odom_pub.publish(odom);
