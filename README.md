@@ -1,9 +1,10 @@
-# rf2o_laser_odometry
+# rf2o_laser_odometry_holonomic for ros2 humble
 
-Estimation of 2D odometry based on planar laser scans. rf2o is a fast and precise method to estimate the planar motion of a lidar from consecutive range scans. Useful for mobile robots with inaccurate wheel odometry.
+Originally forked from MapirLAB. <link> http://mapir.isa.uma.es/mapirwebsite/index.php/mapir-downloads/papers/217 </link>
 
-For every scanned point we formulate the range flow constraint equation in terms of the sensor velocity, and minimize a robust function of the resulting geometric constraints to obtain the motion estimate. Conversely to traditional approaches, this method does not search for correspondences but performs dense scan alignment based on the scan gradients, in the fashion of dense 3D visual odometry.
+I speculate that the origin of this package is to be used with differential-drive robots. When tested, it does not produce the right linear speed y. 
 
-The very low computational cost (0.9 milliseconds on a single CPU core) together whit its high precision, makes RF2O a suitable method for those robotic applications that require planar odometry.
+I modified it so it can be used with the holonomic robot, which needs odometry calculation for linear speed in the y-axis. This will help the move_base navigation stack later
 
-For a full description of the algorithm, please refer to: **Planar Odometry from a Radial Laser Scanner. A Range Flow-based Approach. ICRA 2016** Available at: http://mapir.uma.es/papersrepo/2016/2016_Jaimez_ICRA_RF2O.pdf
+ A simple echo to the topic /odom is shown below:
+![image](https://github.com/simbolonmartin/rf2o_laser_odometry_holonomic/assets/40651935/0270540d-870c-4463-84f1-d9e8868944c2)
