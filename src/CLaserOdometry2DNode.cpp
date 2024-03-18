@@ -220,8 +220,8 @@ void CLaserOdometry2DNode::publish()
   odom.pose.pose.orientation = quaternion;
   //set the velocity
   odom.child_frame_id = base_frame_id;
-  odom.twist.twist.linear.x = rf2o_ref.lin_speed;    //linear speed
-  odom.twist.twist.linear.y = 0.0;
+  odom.twist.twist.linear.x = rf2o_ref.lin_speed_x;    //linear speed in x direction
+  odom.twist.twist.linear.y = rf2o_ref.lin_speed_y;  //linear speed in y direction
   odom.twist.twist.angular.z = rf2o_ref.ang_speed;   //angular speed
   //publish the message
   odom_pub->publish(odom);
