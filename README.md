@@ -1,4 +1,5 @@
-# rf2o_laser_odometry_holonomic for ros2 humble
+# Package rf2o_laser_odometry_holonomic for ros2 humble
+[![ROS2 Humble Build](https://github.com/simbolonmartin/rf2o_laser_odometry_holonomic/actions/workflows/main.yml/badge.svg)](https://github.com/simbolonmartin/rf2o_laser_odometry_holonomic/actions/workflows/main.yml)
 
 Originally forked from MapirLAB. <link> http://mapir.isa.uma.es/mapirwebsite/index.php/mapir-downloads/papers/217 </link>
 
