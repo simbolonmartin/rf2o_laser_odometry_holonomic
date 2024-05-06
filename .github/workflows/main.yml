@@ -1,0 +1,51 @@
+name: ROS2 Humble Build
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches: ["main"]
+    types: [opened]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Install ROS 2 Humble packages
+        run: |
+          sudo apt update
+          sudo apt install -y software-properties-common
+          sudo add-apt-repository universe
+          sudo apt update && sudo apt install -y curl
+          sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+          sudo apt update
+          sudo apt install -y ros-humble-desktop python3-colcon-common-extensions
+          sudo apt install -y lcov
+      - name: Setup Workspace
+        run: |
+          source /opt/ros/humble/setup.bash
+          mkdir -p ros2_ws/src/${{ github.event.repository.name }}
+          cd ros2_ws
+          colcon build
+          source install/setup.bash
+          
+      # We want to use GitHub CI checkout version 3 for checking out the branch
+      - uses: actions/checkout@v4
+        with:
+          path: ${{ github.event.repository.name }}
+
+      # Build test
+      - name: Build test
+        run: |
+          cp -r ${{ github.event.repository.name }}/* ros2_ws/src/${{ github.event.repository.name }}
+          cd ros2_ws/
+          export ROS_DISTRO=humble
+          source /opt/ros/humble/setup.bash
+          sudo apt install python3-rosdep
+          sudo rosdep init
+          rosdep update --include-eol-distros
+          rosdep install --from-paths src --ignore-src --rosdistro=$ROS_DISTRO -y
+          colcon build
