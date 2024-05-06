@@ -3,10 +3,10 @@ name: ROS2 Humble Build
 on:
   push:
     branches:
-      - main
+      - ros2-humble
 
   pull_request:
-    branches: ["main"]
+    branches: ["ros2-humble"]
     types: [opened]
 
 jobs:
